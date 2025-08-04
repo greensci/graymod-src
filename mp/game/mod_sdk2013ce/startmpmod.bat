@@ -1,0 +1,1 @@
+start "" "C:\Program Files (x86)\Steam\steamapps\common\Source SDK Base 2013 Multiplayer/hl2.exe" -game "C:\Users\greensci\Documents\GitHub\graymod\mp\game\mod_sdk2013ce"%* -console
