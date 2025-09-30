@@ -41,8 +41,7 @@ bld/
 *.mak.vpc_crc
 *.xcodeproj/
 obj*/
-!devtools/*.mak
-!utils/smdlexp/smdlexp.mak
+
 
 # Specific Source build products
 client.pdb
