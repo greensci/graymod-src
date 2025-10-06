@@ -90,6 +90,15 @@
 #include "serverbenchmark_base.h"
 #include "querycache.h"
 
+// Lua integration
+extern "C"
+{
+	#include "lua.h"
+	#include "lualib.h"
+	#include "lauxlib.h"
+}
+#include "luamanager.h"
+#include "luasrclib.h"
 
 #ifdef TF_DLL
 #include "gc_clientsystem.h"
@@ -852,6 +861,28 @@ float CServerGameDLL::GetTickInterval( void ) const
 // This is called when a new game is started. (restart, map)
 bool CServerGameDLL::GameInit( void )
 {
+	// Initialize Lua
+	Msg("==============================================\n");
+	Msg("Initializing Server Lua...\n");
+	Msg("==============================================\n");
+	lua_State *L = luaL_newstate();
+	if (L)
+	{
+		luaL_openlibs(L);
+		luasrc_init(L);
+		Msg("Server Lua initialized successfully!\n");
+		
+		// Run autorun scripts
+		Msg("Loading server autorun scripts...\n");
+		Lua_LoadDirectory(L, "lua/autorun/server/*.lua", "MOD");
+		Msg("==============================================\n");
+	}
+	else
+	{
+		Warning("Failed to initialize Server Lua!\n");
+		Msg("==============================================\n");
+	}
+
 	ResetGlobalState();
 	engine->ServerCommand( "exec game.cfg\n" );
 	engine->ServerExecute( );

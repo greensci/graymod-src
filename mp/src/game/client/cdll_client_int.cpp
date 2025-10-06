@@ -90,6 +90,16 @@
 #ifdef SDK2013CE
 #include "shaderapihack.h"
 #endif
+
+// Lua integration
+extern "C"
+{
+	#include "lua.h"
+	#include "lualib.h"
+	#include "lauxlib.h"
+}
+#include "luamanager.h"
+#include "luasrclib.h"
 #if defined( REPLAY_ENABLED )
 #include "replay/replaycamera.h"
 #include "replay/replay_ragdoll.h"
@@ -1161,6 +1171,28 @@ void CHLClient::PostInit()
 	if (IsNewSDK())
 	{
 		Error("The 'previous2021' beta must be selected for Source SDK Base 2013 Multiplayer to play this mod.");
+	}
+
+	// Initialize Lua
+	Msg("==============================================\n");
+	Msg("Initializing Client Lua...\n");
+	Msg("==============================================\n");
+	lua_State *L = luaL_newstate();
+	if (L)
+	{
+		luaL_openlibs(L);
+		luasrc_init(L);
+		Msg("Client Lua initialized successfully!\n");
+		
+		// Run autorun scripts
+		Msg("Loading client autorun scripts...\n");
+		Lua_LoadDirectory(L, "lua/autorun/client/*.lua", "MOD");
+		Msg("==============================================\n");
+	}
+	else
+	{
+		Warning("Failed to initialize Client Lua!\n");
+		Msg("==============================================\n");
 	}
 
 #ifdef SIXENSE

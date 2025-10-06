@@ -10,6 +10,8 @@ $Macro GAMENAME 	"mod_sdk2013ce" [$SOURCESDK]
 
 $Include "$SRCDIR\game\server\server_base.vpc"
 $Include "$SRCDIR\game\server\nav_mesh.vpc" [$SOURCESDK]
+$Include "$SRCDIR\vpc_scripts\luajit_include.vpc"
+$Include "$SRCDIR\game\shared\lua_shared.vpc"
 
 $Configuration
 {

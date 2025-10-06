@@ -9,6 +9,9 @@ $Macro GAMENAME 	"sdk2013ce" [!$SOURCESDK]
 $Macro GAMENAME 	"mod_sdk2013ce" [$SOURCESDK]
 
 $Include "$SRCDIR\game\client\client_base.vpc"
+$Include "$SRCDIR\vpc_scripts\luajit_include.vpc"
+$Include "$SRCDIR\game\shared\lua_shared.vpc"
+$Include "$SRCDIR\game\client\lua_client.vpc"
 
 $Configuration
 {
