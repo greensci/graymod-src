@@ -45,6 +45,7 @@ void FinishClientPutInServer( CHL2MP_Player *pPlayer )
 
 
 	char sName[128];
+	//Msg("NIGEEEEEEEEEEEEEERSSSS ======== %s connected, spawning...\n", pPlayer->GetPlayerName());
 	Q_strncpy( sName, pPlayer->GetPlayerName(), sizeof( sName ) );
 	
 	// First parse the name and remove any %'s
@@ -114,7 +115,7 @@ const char *GetGameDescription()
 	if ( g_pGameRules ) // this function may be called before the world has spawned, and the game rules initialized
 		return g_pGameRules->GetGameDescription();
 	else
-		return "Half-Life 2 Deathmatch";
+		return "GrayMod";
 }
 
 //-----------------------------------------------------------------------------

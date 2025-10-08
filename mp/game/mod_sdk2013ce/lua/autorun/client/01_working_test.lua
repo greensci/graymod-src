@@ -50,6 +50,8 @@ print("\n[TEST 7] Color function:")
 local col = Color(255, 128, 0, 255)
 print("  Color created:", col[1], col[2], col[3], col[4])
 
+
+
 print("\n===============================================")
 print("Note: Most libraries are stubs and don't have")
 print("functions yet. They will be implemented later.")

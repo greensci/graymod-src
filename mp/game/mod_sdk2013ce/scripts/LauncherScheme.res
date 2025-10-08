@@ -35,8 +35,8 @@ Scheme
 
 		Menu
 		{
-			"FgColor"			"150 150 150 255"
-			"BgColor"			"70 70 70 255"
+			"FgColor"			"100 100 100 255"
+			"BgColor"			"60 60 60 255"
 			"ArmedFgColor"		"255 183 0 255"
 			"ArmedBgColor"		"134 91 19 255"
 			"DividerColor"		"56 56 56 255"

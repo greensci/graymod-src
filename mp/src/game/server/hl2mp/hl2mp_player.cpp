@@ -275,8 +275,8 @@ void CHL2MP_Player::GiveAllItems( void )
 	CBasePlayer::GiveAmmo( 32,	"357" );
 	CBasePlayer::GiveAmmo( 3,	"rpg_round");
 
-	CBasePlayer::GiveAmmo( 1,	"grenade" );
-	CBasePlayer::GiveAmmo( 2,	"slam" );
+	CBasePlayer::GiveAmmo( 5,	"grenade" );
+	CBasePlayer::GiveAmmo( 3,	"slam" );
 
 	GiveNamedItem( "weapon_crowbar" );
 	GiveNamedItem( "weapon_stunstick" );
@@ -285,6 +285,7 @@ void CHL2MP_Player::GiveAllItems( void )
 
 	GiveNamedItem( "weapon_smg1" );
 	GiveNamedItem( "weapon_ar2" );
+	
 	
 	GiveNamedItem( "weapon_shotgun" );
 	GiveNamedItem( "weapon_frag" );
@@ -296,6 +297,7 @@ void CHL2MP_Player::GiveAllItems( void )
 	GiveNamedItem( "weapon_slam" );
 
 	GiveNamedItem( "weapon_physcannon" );
+	GiveNamedItem("weapon_physgun");
 	
 }
 
@@ -303,38 +305,45 @@ void CHL2MP_Player::GiveDefaultItems( void )
 {
 	EquipSuit();
 
-	CBasePlayer::GiveAmmo( 255,	"Pistol");
-	CBasePlayer::GiveAmmo( 45,	"SMG1");
-	CBasePlayer::GiveAmmo( 1,	"grenade" );
-	CBasePlayer::GiveAmmo( 6,	"Buckshot");
-	CBasePlayer::GiveAmmo( 6,	"357" );
+	CBasePlayer::GiveAmmo(255, "Pistol");
+	CBasePlayer::GiveAmmo(255, "AR2");
+	CBasePlayer::GiveAmmo(5, "AR2AltFire");
+	CBasePlayer::GiveAmmo(255, "SMG1");
+	CBasePlayer::GiveAmmo(1, "smg1_grenade");
+	CBasePlayer::GiveAmmo(255, "Buckshot");
+	CBasePlayer::GiveAmmo(32, "357");
+	CBasePlayer::GiveAmmo(3, "rpg_round");
 
-	if ( GetPlayerModelType() == PLAYER_SOUNDS_METROPOLICE || GetPlayerModelType() == PLAYER_SOUNDS_COMBINESOLDIER )
-	{
-		GiveNamedItem( "weapon_stunstick" );
-	}
-	else if ( GetPlayerModelType() == PLAYER_SOUNDS_CITIZEN )
-	{
-		GiveNamedItem( "weapon_crowbar" );
-	}
+	CBasePlayer::GiveAmmo(5, "grenade");
+	CBasePlayer::GiveAmmo(3, "slam");
+
+	GiveNamedItem("weapon_crowbar");
+	GiveNamedItem("weapon_stunstick");
+	GiveNamedItem("weapon_pistol");
+	GiveNamedItem("weapon_357");
+
+	GiveNamedItem("weapon_smg1");
+	GiveNamedItem("weapon_ar2");
+
+
+	GiveNamedItem("weapon_shotgun");
+	GiveNamedItem("weapon_frag");
+
+	GiveNamedItem("weapon_crossbow");
+
+	GiveNamedItem("weapon_rpg");
+
+	GiveNamedItem("weapon_slam");
+
+	GiveNamedItem("weapon_physcannon");
+	GiveNamedItem("weapon_physgun");
+
+
 	
-	GiveNamedItem( "weapon_pistol" );
-	GiveNamedItem( "weapon_smg1" );
-	GiveNamedItem( "weapon_frag" );
-	GiveNamedItem( "weapon_physcannon" );
 
-	const char *szDefaultWeaponName = engine->GetClientConVarValue( engine->IndexOfEdict( edict() ), "cl_defaultweapon" );
-
-	CBaseCombatWeapon *pDefaultWeapon = Weapon_OwnsThisType( szDefaultWeaponName );
-
-	if ( pDefaultWeapon )
-	{
-		Weapon_Switch( pDefaultWeapon );
-	}
-	else
-	{
-		Weapon_Switch( Weapon_OwnsThisType( "weapon_physcannon" ) );
-	}
+	
+	Weapon_Switch( Weapon_OwnsThisType( "weapon_physgun" ) );
+	
 }
 
 void CHL2MP_Player::PickDefaultSpawnTeam( void )
@@ -419,6 +428,7 @@ void CHL2MP_Player::Spawn(void)
 	m_Local.m_iHideHUD = 0;
 	
 	AddFlag(FL_ONGROUND); // set the player on the ground at the start of the round.
+
 
 	m_impactEnergyScale = HL2MPPLAYER_PHYSDAMAGE_SCALE;
 
@@ -1292,13 +1302,11 @@ int CHL2MP_Player::FlashlightIsOn( void )
 	return IsEffectActive( EF_DIMLIGHT );
 }
 
-extern ConVar flashlight;
-
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------
 void CHL2MP_Player::FlashlightTurnOn( void )
 {
-	if( flashlight.GetInt() > 0 && IsAlive() )
+	if(IsAlive() )
 	{
 		AddEffects( EF_DIMLIGHT );
 		EmitSound( "HL2Player.FlashlightOn" );

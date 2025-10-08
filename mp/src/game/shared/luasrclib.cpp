@@ -7,6 +7,14 @@
 #include "cbase.h"
 #include "luasrclib.h"
 
+
+#include "tier0/vprof.h"
+
+// memdbgon must be the last include file in a .cpp file!!!
+#include "tier0/memdbgon.h"
+
+
+
 extern "C"
 {
 	#include "lua.h"
@@ -20,6 +28,8 @@ extern "C"
 //-----------------------------------------------------------------------------
 // Basic Lua functions
 //-----------------------------------------------------------------------------
+
+
 
 static int luasrc_Msg(lua_State *L)
 {
@@ -82,6 +92,13 @@ static int luasrc_IsServer(lua_State *L)
 #endif
 	return 1;
 }
+
+/*static int luasrc_GetPlayerName(lua_State* L)
+{
+	CHL2MP_Player* pOwner = ToHL2MPPlayer();
+	lua_pushlstring(L, pOwner->GetPlayerName());
+	return 0;
+}*/
 
 static int luasrc_print(lua_State *L)
 {

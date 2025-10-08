@@ -5065,11 +5065,7 @@ void CBasePlayer::Spawn( void )
 	UpdateLastKnownArea();
 
 	m_weaponFiredTimer.Invalidate();
-	ConVar* cheats = cvar->FindVar("sv_cheats");
-	cheats ->SetValue(1);
-	engine->ServerCommand("mp_flashlight 1\n");
 
-	CheatImpulseCommands(101);
 }
 
 void CBasePlayer::Activate( void )
