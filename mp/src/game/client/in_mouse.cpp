@@ -687,7 +687,12 @@ void CInput::MouseMove( CUserCmd *cmd )
 	}
 
 	// Store out the new viewangles.
-	engine->SetViewAngles( viewangles );
+	// Check if the active weapon wants to override view angle application (e.g., physgun rotation)
+	C_BaseCombatWeapon *pWeapon = GetActiveWeapon();
+	if ( !pWeapon || !pWeapon->OverrideViewAngles() )
+	{
+		engine->SetViewAngles( viewangles );
+	}
 }
 
 //-----------------------------------------------------------------------------
